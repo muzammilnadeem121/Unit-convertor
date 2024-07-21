@@ -1,0 +1,95 @@
+{
+    "length" : {
+        "kilometre": 1,
+        "metre": 1000,
+        "centimetre": 100000,
+        "millimetre": 1e+6,
+        "micrometre": 1e+9,
+        "nanometre": 1e+12,
+        "mile": 0.621371,
+        "yard": 1094,
+        "foot": 3281,
+        "inch": 39370,
+        "nautical mile": 0.539957
+    },
+    "area": {
+        "square kilometre": 1,
+        "square metre": 1e+6,
+        "square centimetre": 1e+12,
+        "square millimetre": 1e+18,
+        "square micrometre": 1e+21,
+        "square nanometre": 1e+24,
+        "acre": 4046.856,
+        "hectare": 10000,
+        "square yard": 9,
+        "square foot": 10.7639,
+        "square inch": 1550.003,
+        "square mile": 2.58999e+6
+    },
+    "volume": {
+        "cubic kilometre": 1,
+        "cubic metre": 1e+9,
+        "cubic centimetre": 1e+15,
+        "cubic millimetre": 1e+21,
+        "cubic micrometre": 1e+24,
+        "cubic nanometre": 1e+27,
+        "liter": 1000,
+        "milliliter": 1e+6,
+        "gallon": 3.78541,
+        "barrel": 158.987,
+        "peck": 15.8987,
+        "bushel": 748.052
+    },
+    "temperature": {
+        "kelvin": 1,
+        "celsius": 273.15,
+        "fahrenheit": 459.67
+    },
+    "speed": {
+        "kilometre per hour": 1,
+        "metre per second": 3.6,
+        "mile per hour": 1.60934,
+        "yard per second": 1.09728,
+        "foot per second": 3.28084,
+        "kilometre per minute": 0.0166667,
+        "metre per minute": 0.00555556,
+        "mile per minute": 0.00444444,
+        "yard per minute": 0.00360965,
+        "foot per minute": 0.00194444
+    },
+    "force": {
+        "newton": 1,
+        "pound-force": 4.44822,
+        "kilogram-force": 9.80665,
+        "gram-force": 9.80665e-3,
+        "ton-force": 9.80665e-2
+    },
+    "energy": {
+        "joule": 1,
+        "kilowatt-hour": 3600,
+        "megajoule": 3.6e+6,
+        "gigajoule": 3.6e+9,
+        "terajoule": 3.6e+12,
+        "petajoule": 3.6e+15,
+        "exajoule": 3.6e+18,
+        "femtojoule": 3.6e-15,
+        "attojoule": 3.6e-18
+    },
+    "power": {
+        "watt": 1,
+        "kilowatt": 1e+3,
+        "megawatt": 1e+6,
+        "gigawatt": 1e+9,
+        "terawatt": 1e+12,
+        "petawatt": 1e+15,
+        "exawatt": 1e+18
+    },
+    "pressure": {
+        "pascal": 1,
+        "bar": 1e-5,
+        "kilobar": 1e+2,
+        "hectobar": 1e+2,
+        "millibar": 1e-3,
+        "pound-force per square inch": 6894.757
+    }
+}

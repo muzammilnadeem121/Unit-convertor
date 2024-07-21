@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <link rel="shortcut icon" href="https://play-lh.googleusercontent.com/sVrwEAZ-O7SzY_3f7F4Qf4aeF05LYXqGReyaQumoKQp1EQH96QQFAVmijOnThF7YqI8=w240-h480-rw" type="image/x-icon">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100%;
+            width: 100%;
+        }
+        .main{
+            margin: 20px;
+            padding: 20px;
+            height: 400px;
+            width: 600px;
+            border: 1px solid #dadce0;
+            border-radius: 10px;
+        }
+        .main select{
+            background-image: url("https://ssl.gstatic.com/ui/v1/disclosure/grey-disclosure-arrow-up-down.png");
+            height: 30px;
+            width: 400px;
+            padding-left: 10px;
+            font-size: 13px;
+            border-color: #dadce0;
+            background-repeat: no-repeat;
+            background-position: 383px;
+            appearance: none;
+            background-color: #f8f9fa;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .main select:focus{
+            outline: none;
+            border-color: #1a73e8;
+        }
+        .main select:hover{
+         box-shadow: 0px 5px 3px -5px black;
+        }
+        .second{
+            height: calc(100% - 30px);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .second input{
+            height: 60px;            
+            width: 200px;
+            text-align: center;
+            font-size: 1.5em;
+            border: 1.5px solid #dadce0;
+        }
+        .second input::-webkit-inner-spin-button,::-webkit-outer-spin-button{
+         -webkit-appearance:  none;
+            appearance: none;
+             -moz-appearance: none;
+        }
+        .second input:focus{
+            outline: none;
+        }
+        .equal{
+            font-size: 30px;
+            display: flex;
+            align-content: center;
+            flex-wrap: wrap;
+            color: #70757a;
+            margin: 0px 10px;
+            padding: 0px 10px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .a select{
+            background-image: url("https://ssl.gstatic.com/ui/v1/disclosure/grey-disclosure-arrow-up-down.png");
+            height: 30px;
+            width: 200px;
+            padding-left: 10px;
+            font-size: 13px;
+            border-color: #dadce0;
+            background-repeat: no-repeat;
+            background-position: 180px;
+            appearance: none;
+            background-color: #f8f9fa;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .a{
+            height: 10%;
+            width: calc(100% - 15px);
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .b{
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+    <select id="z">
+    </select>
+    <div class="second">
+        <div class="b"><input type="number" value="1" id="input"><span class="equal">=</span><input type="number" value="1" id="output"></div>
+        <div class="a">
+         <select id="two">
+         </select>
+         <select id="three">
+         </select>
+     </div> 
+    </div>
+</div>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    const mainSelect = document.getElementById('z');
+    const fromSelect = document.getElementById('two');
+    const toSelect = document.getElementById('three');
+
+    const request = await fetch('data.json');
+    const response = await request.json();
+
+    // Populate the main select element
+    const unitKeys = Object.keys(response);
+    unitKeys.forEach(key => {
+        const option = document.createElement('option');
+        option.value = key;
+        option.textContent = key;
+        mainSelect.appendChild(option);
+    });
+
+    // Add change event listener to main select element
+    mainSelect.addEventListener('change', () => {
+        updateFromToSelects(mainSelect.value, response);
+        convert(response);
+    });
+
+    // Initial population of from and to select elements
+    updateFromToSelects(mainSelect.value, response);
+
+    // Add event listeners to update the conversion on input or select change
+    document.getElementById('input').addEventListener('input', () => {
+        convert(response);
+    });
+    document.getElementById('two').addEventListener('change', () => {
+        convert(response);
+    });
+    document.getElementById('three').addEventListener('change', () => {
+        convert(response);
+    });
+});
+
+function updateFromToSelects(selectedKey, data) {
+    const fromSelect = document.getElementById('two');
+    const toSelect = document.getElementById('three');
+
+    // Clear existing options
+    fromSelect.innerHTML = '';
+    toSelect.innerHTML = '';
+
+    if (data[selectedKey]) {
+        const unitValues = Object.keys(data[selectedKey]);
+        unitValues.forEach(value => {
+            const fromOption = document.createElement('option');
+            fromOption.value = value;
+            fromOption.textContent = value;
+            fromSelect.appendChild(fromOption);
+
+            const toOption = document.createElement('option');
+            toOption.value = value;
+            toOption.textContent = value;
+            toSelect.appendChild(toOption);
+        });
+    }
+}
+
+function convert(data) {
+    const input = parseFloat(document.getElementById('input').value);
+    const output = document.getElementById('output');
+    const from = document.getElementById('two').value;
+    const to = document.getElementById('three').value;
+    const main = document.getElementById('z').value;
+
+    if (isNaN(input)) {
+        output.value = 'Please enter a valid number';
+        return;
+    }
+
+    if (from === to) {
+        output.value = input;
+        return;
+    }
+
+    if (data[main] && data[main][from] !== undefined && data[main][to] !== undefined) {
+        const fromRate = data[main][from];
+        const toRate = data[main][to];
+        const result = (input * fromRate) / toRate;
+        output.value = result.toExponential();
+    } else {
+        output.value = 'Invalid conversion';
+    }
+}    
+</script>
+</html>
